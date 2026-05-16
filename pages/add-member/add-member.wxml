@@ -1,0 +1,39 @@
+<!--pages/add-member/add-member.wxml-->
+<view class="container">
+  <form bindsubmit="onSubmit">
+    <!-- 头像选择区域 -->
+    <view class="form-item avatar-section">
+      <text class="label">成员头像</text>
+      <view class="avatar-box" bindtap="chooseAvatar">
+        <image wx:if="{{avatarUrl}}" class="avatar-img" src="{{avatarUrl}}" mode="aspectFill"></image>
+        <text wx:else class="avatar-placeholder">+</text>
+      </view>
+    </view>
+
+    <!-- 姓名输入 -->
+    <view class="form-item">
+      <text class="label">成员姓名 <text class="required">*</text></text>
+      <input class="input" name="name" placeholder="请输入姓名" value="{{name}}" />
+    </view>
+
+    <!-- 关系选择 -->
+    <view class="form-item">
+      <text class="label">与我的关系</text>
+      <radio-group class="radio-group" name="relation">
+        <label class="radio-item" wx:for="{{relations}}" wx:key="value">
+          <radio value="{{item.value}}" checked="{{item.checked}}" color="#4A90E2" />
+          <text>{{item.name}}</text>
+        </label>
+      </radio-group>
+    </view>
+
+    <!-- 备注（可选） -->
+    <view class="form-item">
+      <text class="label">备注</text>
+      <textarea class="textarea" name="note" placeholder="如：患有高血压，需长期服药..." />
+    </view>
+
+    <!-- 提交按钮 -->
+    <button class="submit-btn" form-type="submit">保存成员</button>
+  </form>
+</view>

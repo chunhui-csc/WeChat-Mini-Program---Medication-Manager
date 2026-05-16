@@ -1,0 +1,45 @@
+<!--pages/reminders/reminders.wxml-->
+<view class="container">
+  <!-- 服药提醒 Tab -->
+  <view class="tab-header">
+    <view class="tab {{ activeTab === 'reminders' ? 'active' : '' }}" bindtap="switchTab" data-tab="reminders">服药提醒</view>
+    <view class="tab {{ activeTab === 'warnings' ? 'active' : '' }}" bindtap="switchTab" data-tab="warnings">过期预警</view>
+  </view>
+
+  <!-- 服药提醒列表 -->
+  <scroll-view scroll-y="true" class="content" wx:if="{{ activeTab === 'reminders' }}">
+    <block wx:for="{{ reminderList }}" wx:key="id">
+      <view class="reminder-card">
+        <view class="reminder-icon">💊</view>
+        <view class="reminder-info">
+          <text class="medicine-name">{{ item.medicineName }}</text>
+          <text class="time">请于 {{ item.time }} 服用</text>
+          <text class="member">成员: {{ item.memberName }}</text>
+        </view>
+        <button class="btn-confirm" bindtap="confirmReminder" data-id="{{ item.id }}">已服药</button>
+      </view>
+    </block>
+    <view wx:else-if="{{ reminderList.length === 0 }}" class="empty-state">
+      <text>暂无服药提醒</text>
+    </view>
+  </scroll-view>
+
+  <!-- 过期预警列表 -->
+  <scroll-view scroll-y="true" class="content" wx:if="{{ activeTab === 'warnings' }}">
+    <block wx:for="{{ warningList }}" wx:key="id">
+      <view class="warning-card {{ item.isExpired ? 'expired-card' : 'expiring-card' }}">
+        <view class="warning-icon">⚠️</view>
+        <view class="warning-info">
+          <text class="medicine-name">{{ item.medicineName }}</text>
+          <text class="expires-in">{{ item.isExpired ? '已过期!' : '将在 ' + item.daysLeft + ' 天后过期' }}</text>
+          <text class="member">成员: {{ item.memberName }}</text>
+        </view>
+        <view class="status-badge {{ item.isExpired ? 'expired' : 'expiring-soon' }}">{{ item.isExpired ? '过期' : '临期' }}</view>
+      </view>
+    </block>
+    <view wx:else-if="{{ warningList.length === 0 }}" class="empty-state">
+      <text>暂无药品预警</text>
+    </view>
+  </scroll-view>
+
+</view>

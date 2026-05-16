@@ -1,0 +1,30 @@
+<!--pages/member-detail/member-detail.wxml-->
+<view class="container">
+  <view class="header">
+    <view class="member-info">
+      <view class="avatar">{{ currentMember.name.substring(0, 1) }}</view>
+      <text class="name">{{ currentMember.name }}</text>
+    </view>
+    <button class="add-btn" bindtap="navigateToAddBottle">+ 添加药瓶</button>
+  </view>
+
+  <!-- 药瓶列表 -->
+  <view class="bottles-list">
+    <block wx:for="{{ bottles }}" wx:key="id">
+      <view class="bottle-card">
+        <view class="main-info">
+          <text class="medicine-name">{{ item.medicineName }}</text>
+          <text class="dosage">{{ item.dosage }}</text>
+        </view>
+        <view class="sub-info">
+          <text class="schedule">服药: {{ item.schedule }}</text>
+          <text class="expires {{ item.isExpired ? 'expired' : item.isExpiringSoon ? 'expiring-soon' : '' }}">有效期: {{ item.expiresDate }}</text>
+        </view>
+        <view class="actions">
+          <button class="btn-edit" bindtap="editBottle" data-id="{{ item.id }}">编辑</button>
+          <button class="btn-delete" bindtap="deleteBottle" data-id="{{ item.id }}">删除</button>
+        </view>
+      </view>
+    </block>
+  </view>
+</view>

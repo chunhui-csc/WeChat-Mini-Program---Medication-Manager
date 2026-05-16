@@ -1,0 +1,33 @@
+<!--pages/add-bottle/add-bottle.wxml-->
+<view class="container">
+  <form bindsubmit="onSubmit">
+    <view class="input-group">
+      <text class="label">药品名称 *</text>
+      <input class="input" name="medicineName" value="{{ formData.medicineName }}" placeholder="请输入药品名称" />
+    </view>
+
+    <view class="input-group">
+      <text class="label">剂量规格</text>
+      <input class="input" name="dosage" value="{{ formData.dosage }}" placeholder="如: 0.25g * 24片" />
+    </view>
+
+    <view class="input-group">
+      <text class="label">服药时间</text>
+      <input class="input" name="schedule" value="{{ formData.schedule }}" placeholder="如: 每日早晚各一次" />
+    </view>
+
+    <view class="input-group">
+      <text class="label">有效期至 *</text>
+      <picker mode="date" name="expiresDate" value="{{ formData.expiresDate }}" start="{{ today }}" bindchange="onDateChange">
+        <view class="picker">{{ formData.expiresDate || '请选择日期' }}</view>
+      </picker>
+    </view>
+
+    <view class="input-group">
+      <text class="label">备注</text>
+      <textarea class="textarea" name="note" value="{{ formData.note }}" placeholder="备注信息..."></textarea>
+    </view>
+
+    <button class="submit-btn" form-type="submit">{{ editMode ? '更新' : '保存' }}药瓶</button>
+  </form>
+</view>
