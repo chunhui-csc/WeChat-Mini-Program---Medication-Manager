@@ -1,3 +1,4 @@
+
 /* pages/reminders/reminders.wxss */
 .container {
   background-color: #f5f5f5;
@@ -109,4 +110,5 @@
   padding: 100rpx 0;
   color: #999;
   font-size: 28rpx;
+
 }
