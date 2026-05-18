@@ -43,6 +43,8 @@ Page({
         bottles: processedBottles
       });
     }
+
+    wx.stopPullDownRefresh();
   },
 
   getDaysLeft(expireDateStr) {
@@ -58,7 +60,31 @@ Page({
     });
   },
 
+  editBottle:function(e){
+    const bottleId = e.currentTarget.dataset.id;
+    const bottle = this.data.bottles.find(b => b.id === bottleId);
+    wx.navigateTo({
+      url: `/pages/add-bottle/add-bottle?memberId=${this.data.currentMember.id}&bottle=${JSON.stringify(bottle)}`
+    });
+  },
 
+  deleteBottle: function(e){
+    const bottleId = e.currentTarget.dataset.id;
+    wx.showModal({
+      title: '确认删除',
+      content: '确定要删除这个药瓶记录吗？',
+      success: res => {
+        if(res.confirm){
+          const members = wx.getStorageSync('members');
+          const memberIndex = members.findIndex(m => m.id === this.data.currentMember.id);
+          members[memberIndex].bottles = members[memberIndex].bottles.filter(b => b.id !== bottleId);
+
+          wx.setStorageSync('members', members);
+          this.loadMemberData(this.data.currentMember.id);
+        }
+      }
+    })
+  }, 
 
   /**
    * 生命周期函数--监听页面初次渲染完成
@@ -92,7 +118,25 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh() {
+    this.onRefresh();
+  },
 
+  onRefresh: function(){
+    const that = this;
+    wx.showNavigationBarLoading()
+    wx.showLoading({
+      title: 'Loading...',
+    })
+    console.log("下拉刷新中。。。")
+    setTimeout(() => {
+      wx.hideLoading();
+      wx.hideNavigationBarLoading();
+      if (!that.data.currentMember || !that.data.currentMember.id) {
+        wx.stopPullDownRefresh(); 
+        return;
+      }
+      that.loadMemberData(that.data.currentMember.id);
+    },1000)
   },
 
   /**

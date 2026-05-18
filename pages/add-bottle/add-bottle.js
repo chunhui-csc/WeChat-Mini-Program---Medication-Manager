@@ -5,14 +5,66 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+    memberId: '',
+    editMode: false,
+    today: '',
+    formData: {
+      medicineName: '',
+      dosage: '',
+      schedule: '',
+      expiresDate: '',
+      note: ''
+    }
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
+    const today = new Date().toISOString().split('T')[0];
+    this.setData({ today });
 
+    this.setData({ memberId: options.memberId });
+
+    if (options.bottle) {
+      const bottle = JSON.parse(decodeURIComponent(options.bottle));
+      this.setData({
+        editMode: true,
+        formData: bottle
+      });
+    }
+  },
+
+  onDateChange: function(e){
+    this.setData('formData.expiresDate', e.detail.value);
+  },
+
+  onSubmit: function(e){
+    const newBottle = e.detail.value;
+    if (!newBottle.medicineName || !newBottle.expiresDate) {
+      wx.showToast({ title: '请填写必填项', icon: 'none' });
+      return;
+    }
+
+    const members = wx.getStorageSync('members');
+    const memberIndex = members.findIndex(m => m.id === this.data.memberId);
+
+    if (this.data.editMode) {
+      const bottleIndex = members[memberIndex].bottles.findIndex(b => b.id === this.data.formData.id);
+      members[memberIndex].bottles[bottleIndex] = { ...this.data.formData, ...newBottle };
+    } else {
+      const bottle = {
+        id: 'bottle_' + Date.now(),
+        ...newBottle
+      };
+      members[memberIndex].bottles.push(bottle);
+    }
+
+    wx.setStorageSync('members', members);
+    wx.showToast({ title: '保存成功', icon: 'success' });
+    setTimeout(() => {
+      wx.navigateBack();
+    }, 1500);
   },
 
   /**

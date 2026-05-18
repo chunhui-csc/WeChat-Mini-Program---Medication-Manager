@@ -8,7 +8,7 @@
     "pages/logs/logs"
   ],
   "window": {
-    "backgroundTextStyle": "light",
+    "backgroundTextStyle": "dark",
     "navigationBarTextStyle": "white",
     "navigationBarTitleText": "用药管家",
     "navigationBarBackgroundColor": "#4A90E2"
