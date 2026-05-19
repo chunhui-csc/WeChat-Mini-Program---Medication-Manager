@@ -73,7 +73,26 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-    
+    this.onRefresh();
+  },
+
+  onRefresh: function(){
+    const that = this;
+    const storedMembers = wx.getStorageSync('members');
+    wx.showNavigationBarLoading()
+    wx.showLoading({
+      title: 'Loading...',
+    })
+    console.log("下拉刷新中。。。")
+    setTimeout(() => {
+      wx.hideLoading();
+      wx.hideNavigationBarLoading();
+      if (!that.data.members) {
+        wx.stopPullDownRefresh();
+        return;
+      }
+      that.setData({members: storedMembers})
+    },1000)
   },
 
   /**

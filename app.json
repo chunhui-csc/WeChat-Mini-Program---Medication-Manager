@@ -21,10 +21,14 @@
     "list": [
       {
         "pagePath": "pages/index/index",
+        "iconPath": "/images/shouye.png",
+        "selectedIconPath": "/images/shouye_selected.png",
         "text": "首页"
       },
       {
         "pagePath": "pages/reminders/reminders",
+        "iconPath": "/images/tixing.png",
+        "selectedIconPath": "/images/tixing_selected.png",
         "text": "提醒"
       }
     ]
