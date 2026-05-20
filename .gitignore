@@ -1,6 +1,7 @@
 # 忽略特定的敏感配置文件
+project.config.json
 project.private.config.json
-config/local.env
+sitemap.json
 
 # 忽略所有 .key 或 .pem 结尾的密钥文件
 *.key

@@ -6,8 +6,8 @@ Page({
    */
   data: {
     activeTab: 'reminders',
-    reminderList: {},
-    warningList: {}
+    reminderList: [],
+    warningList: []
   },
 
   /**
@@ -32,7 +32,72 @@ Page({
   },
 
   loadRemindersAndWarnings: function(){
-    
+    const members = wx.getStorageSync("members") || [];
+    let reminders = [];
+    let warnings = [];
+
+    const today = new Date();
+
+    members.forEach(member => {
+      member.bottles.forEach(bottle => {
+        if (bottle.schedule) {
+          reminders.push({
+            id: `remind_${bottle.id}`,
+            medicineName: bottle.medicineName,
+            time: bottle.schedule,
+            memberName: member.name,
+            confirm: false
+          })
+        }
+
+        const expireDate = new Date(bottle.expiresDate);
+        const diffTime = expireDate - today;
+        const daysLeft = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
+        if (daysLeft <= 30) { 
+          warnings.push({
+            id: bottle.id,
+            medicineName: bottle.medicineName,
+            daysLeft: daysLeft,
+            isExpired: daysLeft < 0,
+            memberName: member.name
+          });
+        }
+      })
+    });
+
+    warnings.sort((a, b) => a.daysLeft - b.daysLeft);
+
+    this.setData({
+      reminderList: reminders,
+      warningList: warnings
+    });
+  },
+
+  switchTab: function(e) {
+    const tab = e.currentTarget.dataset.tab;
+    this.setData({ activeTab: tab });
+  },
+
+  confirmReminder: function(e){
+    const reminderid = e.currentTarget.dataset.id;
+    const reminder = this.data.reminderList.find(r => r.id == reminderid);
+
+    wx.showModal({
+      title: "确认",
+      content: "请确认是否服药",
+      success: res => {
+        if (res.confirm){
+          if (reminder) {
+            reminder.confirm = true;
+      
+            this.setData({
+              reminderList: this.data.reminderList
+            });
+          }
+        }
+      }
+    })
   },
 
   /**

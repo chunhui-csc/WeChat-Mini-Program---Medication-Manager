@@ -41,6 +41,16 @@
   box-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.1);
 }
 
+.reminder-card.confirm{
+  background-color: rgb(180, 180, 180);
+  border-radius: 16rpx;
+  padding: 30rpx;
+  display: flex;
+  align-items: center;
+  margin-bottom: 20rpx;
+  box-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.1);
+}
+
 .reminder-icon,
 .warning-icon {
   font-size: 48rpx;
