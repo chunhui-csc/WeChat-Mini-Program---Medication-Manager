@@ -36,7 +36,7 @@ Page({
   },
 
   onDateChange: function(e){
-    this.setData('formData.expiresDate', e.detail.value);
+    this.setData({'formData.expiresDate': e.detail.value});
   },
 
   onSubmit: function(e){
@@ -51,11 +51,12 @@ Page({
 
     if (this.data.editMode) {
       const bottleIndex = members[memberIndex].bottles.findIndex(b => b.id === this.data.formData.id);
-      members[memberIndex].bottles[bottleIndex] = { ...this.data.formData, ...newBottle };
+      members[memberIndex].bottles[bottleIndex] = { ...this.data.formData, ...newBottle, confirm: false};
     } else {
       const bottle = {
         id: 'bottle_' + Date.now(),
-        ...newBottle
+        ...newBottle,
+        confirm: false
       };
       members[memberIndex].bottles.push(bottle);
     }

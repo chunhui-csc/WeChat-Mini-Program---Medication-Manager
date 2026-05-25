@@ -1,8 +1,8 @@
 // index.js
 const initialMembers = [
-  { id: 'member_001', name: '张三', bottles: [{ id: 'b1' }, { id: 'b2' }] },
-  { id: 'member_002', name: '李四', bottles: [{ id: 'b3' }] },
-  { id: 'member_003', name: '王五', bottles: [] }
+  { id: 'member_001', avatar:'', name: '张三', bottles: [{ id: 'b1' }, { id: 'b2' }], note: '', relation: "" },
+  { id: 'member_002', avatar:'', name: '李四', bottles: [{ id: 'b3' }], note: '', relation: "" },
+  { id: 'member_003', avatar:'', name: '王五', bottles: [], note: '', relation: "" }
 ];
 
 Page({

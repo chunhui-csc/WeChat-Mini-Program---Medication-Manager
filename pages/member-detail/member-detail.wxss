@@ -3,9 +3,13 @@
   padding: 20rpx;
   background-color: #f5f5f5;
   min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
 }
 
 .header {
+  width: 90%;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -30,6 +34,7 @@
   color: white;
   font-size: 32rpx;
   margin-right: 20rpx;
+  overflow: hidden;
 }
 
 .name {
@@ -49,7 +54,9 @@
 .bottles-list {
   display: flex;
   flex-direction: column;
+  justify-content: flex-start;
   gap: 20rpx;
+  align-items: center;
 }
 
 .bottle-card {
@@ -57,6 +64,7 @@
   border-radius: 16rpx;
   padding: 30rpx;
   box-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.1);
+  width: 85%;
 }
 
 .main-info {

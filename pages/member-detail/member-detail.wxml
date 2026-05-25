@@ -2,7 +2,9 @@
 <view class="container">
   <view class="header">
     <view class="member-info">
-      <view class="avatar">{{ currentMember.name.substring(0, 1) }}</view>
+      <view class="avatar">
+        <image src="{{currentMember.avatar}}" mode="aspectFill"/>
+      </view>
       <text class="name">{{ currentMember.name }}</text>
     </view>
     <button class="add-btn" bindtap="navigateToAddBottle">+ 添加药瓶</button>

@@ -38,15 +38,36 @@ Page({
 
     const today = new Date();
 
+    const todayStr = new Date().toLocaleDateString();
+    const lastRecordDate = wx.getStorageSync('lastRecordDate') || [];
+
+    if (lastRecordDate){
+      if (lastRecordDate !== todayStr) {
+        // 日期不一致，说明已经是新的一天了，需要重置所有药品的状态
+        members.forEach(member => {
+          member.bottles.forEach(bottle => {
+            bottle.confirm = false; // 将所有药品的 confirm 重置为 false
+          });
+        });
+  
+        wx.setStorageSync('lastRecordDate', todayStr);
+        wx.setStorageSync('members', members);
+        console.log('检测到跨天，已自动刷新用药状态');
+      }
+    }
+
+    wx.setStorageSync('lastRecordDate', todayStr);
+
     members.forEach(member => {
       member.bottles.forEach(bottle => {
         if (bottle.schedule) {
           reminders.push({
-            id: `remind_${bottle.id}`,
+            id: bottle.id,
             medicineName: bottle.medicineName,
             time: bottle.schedule,
             memberName: member.name,
-            confirm: false
+            confirm: bottle.confirm || false,
+            memberId: member.id
           })
         }
 
@@ -72,6 +93,8 @@ Page({
       reminderList: reminders,
       warningList: warnings
     });
+    
+    wx.setStorageSync('reminderList', this.data.reminderList);
   },
 
   switchTab: function(e) {
@@ -80,8 +103,9 @@ Page({
   },
 
   confirmReminder: function(e){
-    const reminderid = e.currentTarget.dataset.id;
-    const reminder = this.data.reminderList.find(r => r.id == reminderid);
+    const reminderId = e.currentTarget.dataset.id;
+    const reminder = this.data.reminderList.find(r => r.id == reminderId);
+    const members = wx.getStorageSync('members');
 
     wx.showModal({
       title: "确认",
@@ -89,11 +113,16 @@ Page({
       success: res => {
         if (res.confirm){
           if (reminder) {
-            reminder.confirm = true;
-      
-            this.setData({
-              reminderList: this.data.reminderList
+            members.forEach(member => {
+              const targetBottle = member.bottles.find(b => b.id === reminderId);
+              if (targetBottle) {
+                targetBottle.confirm = true;
+              }
             });
+    
+            wx.setStorageSync('members', members);
+    
+            this.loadRemindersAndWarnings();
           }
         }
       }

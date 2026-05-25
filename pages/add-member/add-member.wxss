@@ -80,7 +80,7 @@
   color: #666;
 }
 
-radio {
+.radio {
   transform: scale(0.8);
 }
 

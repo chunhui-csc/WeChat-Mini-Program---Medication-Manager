@@ -8,12 +8,12 @@ Page({
     avatarUrl: '',
     name: '',
     relations: [
-      { name: '本人', value: 'self', checked: true },
-      { name: '父亲', value: 'father' },
-      { name: '母亲', value: 'mother' },
-      { name: '配偶', value: 'spouse' },
-      { name: '子女', value: 'child' },
-      { name: '其他', value: 'other' }
+      { name: '本人', value: '本人', checked: true },
+      { name: '父亲', value: '父亲' },
+      { name: '母亲', value: '母亲' },
+      { name: '配偶', value: '配偶' },
+      { name: '子女', value: '子女' },
+      { name: '其他', value: '其他' }
     ]
   },
 
@@ -48,7 +48,7 @@ Page({
       id: 'member_' + Date.now(),
       name: formData.name,
       avatar: this.data.avatarUrl,
-      relation: formData.relation || 'self',
+      relation: formData.relation || '本人',
       note: formData.note,
       bottles: []
     };

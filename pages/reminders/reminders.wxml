@@ -17,7 +17,7 @@
           <text class="member">成员: {{ item.memberName }}</text>
         </view>
         <view wx:if="{{item.confirm === false}}">
-          <button class="btn-confirm" bindtap="confirmReminder" data-id="{{ item.id }}">是否服药</button>
+          <button class="btn-confirm" bindtap="confirmReminder" data-id="{{ item.id }}" data-member-id="{{item.memberId}}">是否服药</button>
         </view>
         <view wx:else>
           <text>已服药</text>
@@ -42,7 +42,7 @@
         <view class="status-badge {{ item.isExpired ? 'expired' : 'expiring-soon' }}">{{ item.isExpired ? '过期' : '临期' }}</view>
       </view>
     </block>
-    <view wx:else-if="{{ warningList.length === 0 }}" class="empty-state">
+    <view wx:if="{{ warningList.length === 0 }}" class="empty-state">
       <text>暂无药品预警</text>
     </view>
   </scroll-view>

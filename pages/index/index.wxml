@@ -1,33 +1,43 @@
 <!--index.wxml-->
 <view class="container">
-  <!-- 页面标题 -->
-  <view class="page-title">家庭用药管家</view>
+  <view class="ellipse-bg">
 
-  <!-- 功能快捷入口 -->
-  <view class="quick-actions">
-    <button class="action-btn" bindtap="navigateToAddMember">
-      <text class="icon">👨‍👩‍👧‍👦</text>
-      <text class="label">添加成员</text>
-    </button>
-    <button class="action-btn" bindtap="navigateToNearbyPharmacy">
-      <text class="icon">🏥</text>
-      <text class="label">附近药房</text>
-    </button>
+    <!-- 功能快捷入口 -->
+    <view class="quick-actions">
+      <button class="action-btn" bindtap="navigateToAddMember">
+        <image src="/images/tianjiachengyuan.png" mode="aspectFit" class="icon"/>
+        <text class="label">添加成员</text>
+      </button>
+      <button class="action-btn" bindtap="navigateToNearbyPharmacy">
+        <image src="/images/yiyuandingweidian.png" mode="aspectFit" class="icon"/>
+        <text class="label">附近药房</text>
+      </button>
+    </view>
+    <view class="picture">
+      <image src="/images/shouyeguangbotu.png" mode="aspectFit" class="picture-in"/>
+    </view>
   </view>
+
+  <view class="banner-placeholder"></view>
 
   <!-- 家庭成员列表 -->
   <view class="section-title">我的家庭成员</view>
   <view class="members-list">
     <block wx:for="{{ members }}" wx:key="id">
       <view class="member-card" bindtap="viewMemberDetail" data-member-id="{{ item.id }}">
-        <view class="avatar">{{ item.name.substring(0, 1) }}</view>
+        <view class="avatar">
+          <image src="{{item.avatar}}" mode="aspectFill"/>
+        </view>
         <view class="info">
           <text class="name">{{ item.name }}</text>
           <text class="detail">药瓶数: {{ item.bottles.length || 0 }}</text>
+        </view>
+        <view class="relation-note">
+          <text class="relation">{{item.relation}}</text>
+          <text class="note">{{item.note}}</text>
         </view>
         <text class="arrow">›</text>
       </view>
     </block>
   </view>
-
 </view>

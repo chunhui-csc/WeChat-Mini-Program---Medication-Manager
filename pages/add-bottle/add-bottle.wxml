@@ -2,7 +2,7 @@
 <view class="container">
   <form bindsubmit="onSubmit">
     <view class="input-group">
-      <text class="label">药品名称 *</text>
+      <text class="label">药品名称 *（必填）</text>
       <input class="input" name="medicineName" value="{{ formData.medicineName }}" placeholder="请输入药品名称" />
     </view>
 
@@ -17,7 +17,7 @@
     </view>
 
     <view class="input-group">
-      <text class="label">有效期至 *</text>
+      <text class="label">有效期至 *（必填）</text>
       <picker mode="date" name="expiresDate" value="{{ formData.expiresDate }}" start="{{ today }}" bindchange="onDateChange">
         <view class="picker">{{ formData.expiresDate || '请选择日期' }}</view>
       </picker>
