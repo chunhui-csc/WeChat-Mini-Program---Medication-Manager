@@ -47,6 +47,36 @@
   box-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.1);
 }
 
+.reminder-card.state-b {
+  background: linear-gradient(135deg, #e3f2fd, #42a5f5); 
+  border-radius: 16rpx;
+  padding: 30rpx;
+  display: flex;
+  align-items: center;
+  margin-bottom: 20rpx;
+  box-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.1);
+}
+
+.reminder-card.state-y {
+  background: linear-gradient(135deg, #fff9c4, #fdd835);
+  border-radius: 16rpx;
+  padding: 30rpx;
+  display: flex;
+  align-items: center;
+  margin-bottom: 20rpx;
+  box-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.1);
+}
+
+.reminder-card.state-r {
+  background: linear-gradient(135deg, #ffcdd2, #ef5350);
+  border-radius: 16rpx;
+  padding: 30rpx;
+  display: flex;
+  align-items: center;
+  margin-bottom: 20rpx;
+  box-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.1);
+}
+
 .reminder-icon,
 .warning-icon {
   font-size: 48rpx;
@@ -80,6 +110,14 @@
 
 .btn-confirm {
   background-color: #7ed321;
+  color: white;
+  border-radius: 8rpx;
+  font-size: 24rpx;
+  padding: 10rpx 20rpx;
+}
+
+.btn-confirm-reset {
+  background-color: #ead133;
   color: white;
   border-radius: 8rpx;
   font-size: 24rpx;

@@ -51,12 +51,18 @@ Page({
 
     if (this.data.editMode) {
       const bottleIndex = members[memberIndex].bottles.findIndex(b => b.id === this.data.formData.id);
-      members[memberIndex].bottles[bottleIndex] = { ...this.data.formData, ...newBottle, confirm: false};
+      members[memberIndex].bottles[bottleIndex] = { 
+        ...this.data.formData, 
+        ...newBottle, 
+        confirm: false,
+        endTime: ""
+      };
     } else {
       const bottle = {
         id: 'bottle_' + Date.now(),
         ...newBottle,
-        confirm: false
+        confirm: false,
+        endTime: ""
       };
       members[memberIndex].bottles.push(bottle);
     }

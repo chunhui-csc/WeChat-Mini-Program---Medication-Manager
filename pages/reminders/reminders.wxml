@@ -9,7 +9,7 @@
   <!-- 服药提醒列表 -->
   <scroll-view scroll-y="true" class="content" wx:if="{{ activeTab === 'reminders' }}">
     <block wx:for="{{ reminderList }}" wx:key="id">
-      <view class="reminder-card {{ item.confirm === false ? '' : 'confirm'}}">
+      <view class="reminder-card {{ item.confirm === false ? '' : 'confirm'}} {{ item.state === 'b' ? 'state-b' : (item.state === 'y' ? 'state-y' : (item.state === 'r' ? 'state-r' : '')) }}">
         <view class="reminder-icon">💊</view>
         <view class="reminder-info">
           <text class="medicine-name">{{ item.medicineName }}</text>
@@ -17,10 +17,13 @@
           <text class="member">成员: {{ item.memberName }}</text>
         </view>
         <view wx:if="{{item.confirm === false}}">
+          <picker mode="time" value="{{item.endTime}}" data-index="{{index}}" data-id="{{ item.id }}" bindchange="bindTimeChange">
+            <view class="picker">服药时间：{{ item.endTime || '' }}</view>
+          </picker>
           <button class="btn-confirm" bindtap="confirmReminder" data-id="{{ item.id }}" data-member-id="{{item.memberId}}">是否服药</button>
         </view>
         <view wx:else>
-          <text>已服药</text>
+          <button class="btn-confirm-reset" bind:tap="resetConfirm" data-index="{{index}}" data-id="{{ item.id }}">重置</button>
         </view>
       </view>
     </block>

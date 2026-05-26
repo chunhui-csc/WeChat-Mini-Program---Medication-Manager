@@ -43,10 +43,9 @@ Page({
 
     if (lastRecordDate){
       if (lastRecordDate !== todayStr) {
-        // 日期不一致，说明已经是新的一天了，需要重置所有药品的状态
         members.forEach(member => {
           member.bottles.forEach(bottle => {
-            bottle.confirm = false; // 将所有药品的 confirm 重置为 false
+            bottle.confirm = false; 
           });
         });
   
@@ -67,9 +66,12 @@ Page({
             time: bottle.schedule,
             memberName: member.name,
             confirm: bottle.confirm || false,
-            memberId: member.id
+            memberId: member.id,
+            endTime: bottle.endTime,
+            state: ""
           })
         }
+
 
         const expireDate = new Date(bottle.expiresDate);
         const diffTime = expireDate - today;
@@ -93,8 +95,31 @@ Page({
       reminderList: reminders,
       warningList: warnings
     });
-    
-    wx.setStorageSync('reminderList', this.data.reminderList);
+
+    const date = new Date();
+
+    const currentTotalMinutes = date.getHours() * 60 + date.getMinutes();
+
+    this.data.reminderList.forEach((reminder,index) => {
+      if (reminder.endTime) {
+        console.log(reminder.endtime);
+        const [endHours, endMinutes] = reminder.endTime.split(':').map(Number);
+        const endTotalMinutes = endHours * 60 + endMinutes;
+        const diffMinutes = endTotalMinutes - currentTotalMinutes;
+  
+        console.log(`药品：${reminder.medicineName}，终止时间：${reminder.endTime}，相差分钟数：${diffMinutes}`);
+  
+        if (diffMinutes > 60) {
+          console.log(`距离结束还有 ${diffMinutes} 分钟`);
+          this.setData({[`reminderList[${index}].state`]: 'b'})//blue
+        } else if (diffMinutes > 0) {
+          this.setData({[`reminderList[${index}].state`]: 'y'})//yellow
+        } else {
+          console.log(`已超过终止时间 ${Math.abs(diffMinutes)} 分钟`);
+          this.setData({[`reminderList[${index}].state`]: 'r'})//red
+        }
+      }
+    });
   },
 
   switchTab: function(e) {
@@ -127,6 +152,42 @@ Page({
         }
       }
     })
+  },
+
+  bindTimeChange: function(e){
+    const reminderId = e.currentTarget.dataset.id;
+    const members = wx.getStorageSync('members');
+    const index = e.currentTarget.dataset.index;
+
+    members.forEach(member => {
+      const targetBottle = member.bottles.find(b => b.id === reminderId);
+      if (targetBottle) {
+        targetBottle.endTime = e.detail.value;
+      }
+    });
+    
+    wx.setStorageSync('members', members);
+
+    this.setData({[`reminderList[${index}].endTime`]: e.detail.value});
+
+    this.loadRemindersAndWarnings();
+  },
+
+  resetConfirm: function(e){
+    const reminderId = e.currentTarget.dataset.id;
+    const members = wx.getStorageSync('members');
+    const index = e.currentTarget.dataset.index;
+
+    members.forEach(member => {
+      const targetBottle = member.bottles.find(b => b.id === reminderId);
+      if (targetBottle) {
+        targetBottle.confirm = false;
+      }
+    });
+
+    wx.setStorageSync('members', members);
+
+    this.setData({[`reminderList[${index}].confirm`]: false});
   },
 
   /**
