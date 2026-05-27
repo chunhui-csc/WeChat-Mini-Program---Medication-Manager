@@ -62,6 +62,7 @@ Page({
         if (bottle.schedule) {
           reminders.push({
             id: bottle.id,
+            note: bottle.note,
             medicineName: bottle.medicineName,
             time: bottle.schedule,
             memberName: member.name,

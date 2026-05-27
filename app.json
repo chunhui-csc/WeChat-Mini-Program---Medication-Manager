@@ -5,6 +5,7 @@
     "pages/member-detail/member-detail",
     "pages/add-bottle/add-bottle",
     "pages/reminders/reminders",
+    "pages/nearby-pharmacy/nearby-pharmacy",
     "pages/logs/logs"
   ],
   "window": {

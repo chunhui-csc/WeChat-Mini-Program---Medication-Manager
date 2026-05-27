@@ -123,3 +123,19 @@
   background-color: #f5f5f5;
   color: #d0021b;
 }
+
+.member-delete {
+  margin-top: 100rpx;
+}
+
+.btn-member-delete {
+  background-color: red;
+}
+
+.text-delete {
+  color: #eee;
+}
+
+.scroll-view{
+  height: 1000rpx;
+}

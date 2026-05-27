@@ -1,5 +1,8 @@
 <!--pages/reminders/reminders.wxml-->
 <view class="container">
+  <view class="picture-item">
+    <image src="/images/tixingguangbotu.png" mode="aspectFit" class="picture"/>
+  </view>
   <!-- 服药提醒 Tab -->
   <view class="tab-header">
     <view class="tab {{ activeTab === 'reminders' ? 'active' : '' }}" bindtap="switchTab" data-tab="reminders">服药提醒</view>
@@ -9,12 +12,13 @@
   <!-- 服药提醒列表 -->
   <scroll-view scroll-y="true" class="content" wx:if="{{ activeTab === 'reminders' }}">
     <block wx:for="{{ reminderList }}" wx:key="id">
-      <view class="reminder-card {{ item.confirm === false ? '' : 'confirm'}} {{ item.state === 'b' ? 'state-b' : (item.state === 'y' ? 'state-y' : (item.state === 'r' ? 'state-r' : '')) }}">
+      <view class="reminder-card {{ item.confirm ? 'confirm' : (item.state === 'b' ? 'state-b' : (item.state === 'y' ? 'state-y' : (item.state === 'r' ? 'state-r' : '')))}}">
         <view class="reminder-icon">💊</view>
         <view class="reminder-info">
           <text class="medicine-name">{{ item.medicineName }}</text>
           <text class="time">安排： {{ item.time }} </text>
           <text class="member">成员: {{ item.memberName }}</text>
+          <text class="medicine-note">备注：{{ item.note }}</text>
         </view>
         <view wx:if="{{item.confirm === false}}">
           <picker mode="time" value="{{item.endTime}}" data-index="{{index}}" data-id="{{ item.id }}" bindchange="bindTimeChange">

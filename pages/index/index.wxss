@@ -158,3 +158,11 @@
   width: 100%;
   height: 180rpx;
 }
+
+.swipe-container {
+  position: relative;
+  width: 100%;
+  height: 120rpx; /* 与 member-card 实际高度保持一致 */
+  overflow: hidden;
+  border-radius: 16rpx;
+}

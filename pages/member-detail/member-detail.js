@@ -86,6 +86,37 @@ Page({
     })
   }, 
 
+  deleteMember: function(e){
+    const members = wx.getStorageSync("members");
+    const id = e.currentTarget.dataset.id;
+    console.log(id);
+
+    wx.showModal({
+      title: '确认删除',
+      content: "确定要删除吗？",
+      success: res => {
+        if (res.confirm){
+          const newMembers = members.filter(member => 
+            String(member.id).trim() !== String(id).trim());
+          console.log(newMembers);
+          wx.setStorageSync("members", newMembers);
+
+          wx.showToast({ 
+            title: '已删除', 
+            icon: 'success',
+            success: res => {
+              wx.navigateBack({
+                delta: 1
+              })
+            }
+          });
+        }
+
+        
+      }
+    })
+  },
+
   /**
    * 生命周期函数--监听页面初次渲染完成
    */

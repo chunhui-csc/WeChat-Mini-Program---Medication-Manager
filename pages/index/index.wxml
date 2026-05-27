@@ -5,16 +5,16 @@
     <!-- 功能快捷入口 -->
     <view class="quick-actions">
       <button class="action-btn" bindtap="navigateToAddMember">
-        <image src="/images/tianjiachengyuan.png" mode="aspectFit" class="icon"/>
+        <image src="/images/tianjiachengyuan.png" mode="aspectFit" class="icon" />
         <text class="label">添加成员</text>
       </button>
       <button class="action-btn" bindtap="navigateToNearbyPharmacy">
-        <image src="/images/yiyuandingweidian.png" mode="aspectFit" class="icon"/>
+        <image src="/images/yiyuandingweidian.png" mode="aspectFit" class="icon" />
         <text class="label">附近药房</text>
       </button>
     </view>
     <view class="picture">
-      <image src="/images/shouyeguangbotu.png" mode="aspectFit" class="picture-in"/>
+      <image src="/images/shouyeguangbotu.png" mode="aspectFit" class="picture-in" />
     </view>
   </view>
 
@@ -26,7 +26,7 @@
     <block wx:for="{{ members }}" wx:key="id">
       <view class="member-card" bindtap="viewMemberDetail" data-member-id="{{ item.id }}">
         <view class="avatar">
-          <image src="{{item.avatar}}" mode="aspectFill"/>
+          <image src="{{item.avatar}}" mode="aspectFill" />
         </view>
         <view class="info">
           <text class="name">{{ item.name }}</text>

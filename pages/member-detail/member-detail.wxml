@@ -11,7 +11,8 @@
   </view>
 
   <!-- 药瓶列表 -->
-  <view class="bottles-list">
+  <scroll-view class="scroll-view">
+    <view class="bottles-list">
     <block wx:for="{{ bottles }}" wx:key="id">
       <view class="bottle-card">
         <view class="main-info">
@@ -29,4 +30,13 @@
       </view>
     </block>
   </view>
+  </scroll-view>
+  
+
+  <view class="member-delete">
+    <button class="btn-member-delete" bindtap="deleteMember" data-id=" {{currentMember.id}} ">
+      <text class="text-delete">删除成员</text>
+    </button>
+  </view>
+
 </view>
